@@ -2,6 +2,7 @@ package dev.f4ls3.titancloud.networking;
 
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
+import io.netty.channel.ChannelHandlerContext;
 
 import java.io.IOException;
 
@@ -13,8 +14,10 @@ public abstract class Packet {
         this.packetID = packetID;
     }
 
-    public abstract void read(ByteBufInputStream buffer) throws IOException;
-    public abstract void write(ByteBufOutputStream buffer) throws IOException;
+    public void configure() {}
+
+    public abstract void receive(ByteBufInputStream buffer, ChannelHandlerContext ctx) throws IOException;
+    public abstract void send(ByteBufOutputStream buffer, ChannelHandlerContext ctx) throws IOException;
 
     public int getPacketID() {
         return packetID;
